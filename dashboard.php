@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
     header("Location: login.php");
     exit;
 }
@@ -13,69 +13,146 @@ if (!isset($_SESSION['username'])) {
 <html>
 <head>
     <title>Dashboard</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
+<div class="container-fluid">
+    <div class="row">
 
-<h2>Dashboard</h2>
+        <!-- SIDEBAR -->
+        <div class="col-md-3 col-lg-2 bg-dark min-vh-100 p-3">
 
-<p>
-    Selamat datang,
-    <?php echo $_SESSION['nama_user']; ?>
-</p>
+            <h4 class="text-white mb-4">
+                My Website
+            </h4>
 
-<p>
-    Role:
-    <?php echo $_SESSION['role']; ?>
-</p>
+            <ul class="nav nav-pills flex-column">
 
-<hr>
+                <li class="nav-item mb-2">
+                    <a href="Dashboard" class="nav-link active">
+                        Dashboard
+                    </a>
+                </li>
 
-<a href="dashboard.php"></a>
+                <li class="nav-item mb-2">
+                    <a href="Data Siswa" class="nav-link text-white">
+                        Data Siswa
+                    </a>
+                </li>
 
-<br><br>
+                <li class="nav-item mb-2">
+                    <a href="Data Guru" class="nav-link text-white">
+                        Data Guru
+                    </a>
+                </li>
 
-<?php
+                <li class="nav-item mb-2">
+                    <a href="Kelas" class="nav-link text-white">
+                        Kelas
+                    </a>
+                </li>
 
-if ($_SESSION['role'] == "admin") { ?>
+                <li class="nav-item mb-2">
+                    <a href="Laporan" class="nav-link text-white">
+                        Laporan
+                    </a>
+                </li>
 
-        <h3>menu admin</h3>
-    <a href="menu1.php">Menu 1</a>
+                  <li class="nav-item mb-2">
+                    <a href="About me" class="nav-link text-white">
+                        About me
+                    </a>
+                </li>
 
-    <br><br>
+                <hr class="text-secondary">
 
-    <a href="menu2.php">Menu 2</a>
+                <li class="nav-item">
+                    <a href="logout.php" class="nav-link text-danger">
+                        Logout
+                    </a>
+                </li>
 
-    <br><br>
+            </ul>
 
-    <a href="menu3.php">Menu 3</a>
+        </div>
 
-    <br><br>
 
-    <a href="menu4.php">Menu 4</a>
+        <!-- KONTEN -->
+        <main class="col-md-9 col-lg-10 p-4">
 
-    <br><br>
+            <h2>Dashboard</h2>
 
-<?php
+            <p>
+                Selamat datang di halaman dashboard.
+            </p>
 
-} else if ($_SESSION['role'] == "guru") { ?>
-        
-        <h3>menu guru</h3>
-    <a href="menu3.php">Menu 3</a>
+            <div class="row">
 
-    <br><br>
+                <!-- CARD DATA SISWA -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
 
-    <a href="menu4.php">Menu 4</a>
+                        <div class="card-body">
 
-    <br><br>
+                            <h5 class="card-title">
+                                Data Siswa
+                            </h5>
 
-<?php
+                            <h2>
+                                120
+                            </h2>
 
-}
+                        </div>
 
-?>
+                    </div>
+                </div>
 
-<a href="logout.php">Logout</a>
 
+                <!-- CARD DATA GURU -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                Data Guru
+                            </h5>
+
+                            <h2>
+                                25
+                            </h2>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- CARD KELAS -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                Kelas
+                            </h5>
+
+                            <h2>
+                                12
+                            </h2>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+</div>
 </body>
 </html>

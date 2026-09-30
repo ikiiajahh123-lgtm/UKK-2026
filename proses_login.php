@@ -4,28 +4,70 @@ session_start();
 
 include "config/koneksi.php";
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: login.php");
+    exit();
+}
 
-$query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username' AND password='$password'");
+$username = trim($_POST["username"]);
+$password = trim($_POST["password"]);
 
-$data = mysqli_fetch_assoc($query);
+if ($username == "" || $password == "") {
+    header("Location: login.php?pesan=gagal");
+    exit();
+}
 
-if ($data) {
+$username = mysqli_real_escape_string($koneksi, $username);
 
-    $_SESSION['id_user'] = $data['id_user'];
-    $_SESSION['username'] = $data['username'];
-    $_SESSION['nama_user'] = $data['nama_user'];
-    $_SESSION['role'] = $data['role'];
+/*
+    Login bisa menggunakan:
+    - name
+    - atau email
+*/
 
-    header("Location: dashboard.php");
-    exit;
+$query = mysqli_query(
+    $koneksi,
+    "SELECT * FROM t_users
+     WHERE name = '$username'
+     OR email = '$username'
+     LIMIT 1"
+);
+
+if (!$query) {
+    die("Query gagal: " . mysqli_error($koneksi));
+}
+
+if (mysqli_num_rows($query) == 1) {
+
+    $user = mysqli_fetch_assoc($query);
+
+
+    if ($password === trim($user["password"])) {
+
+        $_SESSION["login"] = true;
+        $_SESSION["nama_user"] = $user["name"];
+        $_SESSION["email"] = $user["email"];
+        $_SESSION["role"] = $user["role"];
+
+        header("Location: dashboard.php");
+        exit();
+
+    } else {
+
+        header(
+            "Location: login.php?pesan=gagal&username="
+            . urlencode($username)
+        );
+        exit();
+    }
 
 } else {
 
-    header("Location: login.php?pesan=gagal");
-    exit;
-
+    header(
+        "Location: login.php?pesan=gagal&username="
+        . urlencode($username)
+    );
+    exit();
 }
 
 ?>
