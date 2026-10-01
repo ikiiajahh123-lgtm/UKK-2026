@@ -36,31 +36,31 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
                 </li>
 
                 <li class="nav-item mb-2">
-                    <a href="Data Siswa" class="nav-link text-white">
+                    <a href="siswa.php" class="nav-link text-white">
                         Data Siswa
                     </a>
                 </li>
 
                 <li class="nav-item mb-2">
-                    <a href="Data Guru" class="nav-link text-white">
+                    <a href="guru.php" class="nav-link text-white">
                         Data Guru
                     </a>
                 </li>
 
                 <li class="nav-item mb-2">
-                    <a href="Kelas" class="nav-link text-white">
+                    <a href="Kelas.php" class="nav-link text-white">
                         Kelas
                     </a>
                 </li>
 
                 <li class="nav-item mb-2">
-                    <a href="Laporan" class="nav-link text-white">
+                    <a href="Laporan.php" class="nav-link text-white">
                         Laporan
                     </a>
                 </li>
 
                   <li class="nav-item mb-2">
-                    <a href="About me" class="nav-link text-white">
+                    <a href="About_me.php" class="nav-link text-white">
                         About me
                     </a>
                 </li>
